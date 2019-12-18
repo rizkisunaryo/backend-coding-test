@@ -104,7 +104,8 @@ Please implement load testing to ensure your service can handle a high amount of
 ---
 
 # Installation
-`yarn install`
+- Make sure that Node version 10 is installed and used by following [this instruction](#change-node-version).
+- `yarn install`
 
 # Troubleshooting
 
