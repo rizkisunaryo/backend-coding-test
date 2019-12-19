@@ -17,7 +17,7 @@ describe('API tests', () => {
       }
 
       buildSchemas(db)
-      db.run(`DELETE FROM Rides`)
+      db.run('DELETE FROM Rides')
 
       done()
     })
@@ -55,7 +55,7 @@ describe('API tests', () => {
           })
         )
       const rides = await request(app).get('/rides')
-      assert.equal(rides.body.length, 1)
+      assert.strictEqual(rides.body.length, 1)
     })
   })
 
@@ -83,7 +83,7 @@ describe('API tests', () => {
           })
         )
       const rides = await request(app).get(`/rides/${insertedRide.body.rideID}`)
-      assert.equal(rides.body.driverName, 'TEST DRIVER 2')
+      assert.strictEqual(rides.body.driverName, 'TEST DRIVER 2')
     })
   })
 
