@@ -1,21 +1,25 @@
-'use strict';
+'use strict'
 
-const express = require('express');
-const app = express();
-const port = 8010;
+const logger = require('./logger')()
 
-const bodyParser = require('body-parser');
-const jsonParser = bodyParser.json();
+const express = require('express')
+const app = express()
+const port = 8010
 
-const sqlite3 = require('sqlite3').verbose();
-const db = new sqlite3.Database(':memory:');
+const bodyParser = require('body-parser')
+const jsonParser = bodyParser.json()
 
-const buildSchemas = require('./schemas');
+const sqlite3 = require('sqlite3').verbose()
+const db = new sqlite3.Database(':memory:')
+
+const buildSchemas = require('./schemas')
 
 db.serialize(() => {
-    buildSchemas(db);
+  buildSchemas(db)
 
-    const app = require('./app')(db);
+  const app = require('./app')(db)
 
-    app.listen(port, () => console.log(`App started and listening on port ${port}`));
-});
+  app.listen(port, () =>
+    logger.info(`App started and listening on port ${port}`)
+  )
+})
