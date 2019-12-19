@@ -7,9 +7,10 @@
     "test": "tests"
   },
   "scripts": {
-    "test": "mocha ./src/**/*.test.js",
+    "test": "nyc --reporter=text --reporter=html mocha ./src/**/*.test.js",
     "start": "node ./src/index.js",
-    "lint": "eslint ./src/**/*.js --fix"
+    "lint": "eslint ./src/**/*.js --fix",
+    "pre-push": "yarn lint && yarn test"
   },
   "keywords": [
     "Xendit"
@@ -28,7 +29,14 @@
     "eslint-plugin-node": "10.0.0",
     "eslint-plugin-promise": "4.2.1",
     "eslint-plugin-standard": "4.0.1",
+    "husky": "3.1.0",
     "mocha": "6.1.4",
+    "nyc": "14.1.1",
     "supertest": "4.0.2"
+  },
+  "husky": {
+    "hooks": {
+      "pre-push": "npm test"
+    }
   }
 }
