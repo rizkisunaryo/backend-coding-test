@@ -103,6 +103,8 @@ Please implement load testing to ensure your service can handle a high amount of
 
 ---
 
+[![codecov](https://codecov.io/gh/rizkisunaryo/backend-coding-test/branch/master/graph/badge.svg)](https://codecov.io/gh/rizkisunaryo/backend-coding-test)
+
 # Installation
 - Make sure that Node version 10 is installed and used by following [this instruction](#change-node-version).
 - `yarn install`
