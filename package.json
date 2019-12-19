@@ -7,7 +7,7 @@
     "test": "tests"
   },
   "scripts": {
-    "test": "nyc --reporter=text --reporter=html mocha ./src/**/*.test.js",
+    "test": "nyc --reporter=text --reporter=html --reporter=lcovonly mocha ./src/**/*.test.js",
     "start": "node ./src/index.js",
     "lint": "eslint ./src/**/*.js --fix",
     "pre-push": "yarn lint && yarn test"
