@@ -1,10 +1,10 @@
 const router = require('express').Router()
 const uuidV4 = require('uuid/v4')
 
-const db = require('../singletons/database')()
 const DatabaseHelper = require('../helpers/DatabaseHelper')
 const logger = require('../singletons/logger')()
 const ridesValidator = require('../validators/ridesValidator')
+const { numberize } = require('../helpers/NumberHelper')
 
 router.post('/', async (req, res) => {
   const startLatitude = Number(req.body.start_lat)
@@ -65,7 +65,13 @@ router.post('/', async (req, res) => {
 
 router.get('/', async (req, res) => {
   try {
-    const rows = await DatabaseHelper.all('SELECT * FROM Rides')
+    const page = numberize(req.query.page, 1)
+    const size = numberize(req.query.size, 10)
+
+    const rows = await DatabaseHelper.all('SELECT * FROM Rides LIMIT ?, ?', [
+      (page - 1) * size,
+      size
+    ])
     if (rows.length === 0) {
       return res.status(410).send({
         error_code: 'RIDES_NOT_FOUND_ERROR',
