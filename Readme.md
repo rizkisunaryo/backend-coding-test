@@ -145,3 +145,6 @@ const rows = await DatabaseHelper.all(sql, id)
 - Install [NVM](https://github.com/nvm-sh/nvm): `curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.2/install.sh | bash`
 - Install Node version 10: `nvm install 10`. If the command stuck, then probably Node version 10 has been installed in your computer. Cancel the command.
 - Use Node version 10: `nvm use 10`
+
+## Not Able to Push From Sourcetree
+Open Sourcetree, by running this command: `open /Applications/SourceTree.app/Contents/MacOS/SourceTree`
