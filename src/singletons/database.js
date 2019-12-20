@@ -4,7 +4,7 @@ let db
 module.exports = () => {
     if (db) return db
 
-    db = new sqlite3.Database(':memory:')
+    db = new sqlite3.Database('data')
     db.serialize()
     
     return db

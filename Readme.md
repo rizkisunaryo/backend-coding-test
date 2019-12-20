@@ -139,6 +139,88 @@ const rows = await DatabaseHelper.all(sql, id)
 # Unit Test Code Coverage
 [![codecov](https://codecov.io/gh/rizkisunaryo/backend-coding-test/branch/master/graph/badge.svg)](https://codecov.io/gh/rizkisunaryo/backend-coding-test)
 
+# Performance
+After running `yarn test:load`, below is the result:
+```
+Started phase 0, duration: 30s @ 04:00:42(+0700) 2019-12-21
+Report @ 04:00:52(+0700) 2019-12-21
+Elapsed time: 10 seconds
+  Scenarios launched:  33
+  Scenarios completed: 33
+  Requests completed:  1155
+  RPS sent: 119.44
+  Request latency:
+    min: 0.7
+    max: 5.4
+    median: 0.9
+    p95: 2.1
+    p99: 3
+  Codes:
+    410: 1155
+
+Report @ 04:01:02(+0700) 2019-12-21
+Elapsed time: 20 seconds
+  Scenarios launched:  33
+  Scenarios completed: 33
+  Requests completed:  1155
+  RPS sent: 117.74
+  Request latency:
+    min: 0.6
+    max: 4.4
+    median: 0.8
+    p95: 1.8
+    p99: 2.5
+  Codes:
+    410: 1155
+
+Report @ 04:01:12(+0700) 2019-12-21
+Elapsed time: 30 seconds
+  Scenarios launched:  34
+  Scenarios completed: 33
+  Requests completed:  1156
+  RPS sent: 116.65
+  Request latency:
+    min: 0.6
+    max: 4.1
+    median: 0.7
+    p95: 1.8
+    p99: 3
+  Codes:
+    410: 1156
+
+Report @ 04:01:13(+0700) 2019-12-21
+Elapsed time: 30 seconds
+  Scenarios launched:  0
+  Scenarios completed: 1
+  Requests completed:  34
+  RPS sent: 69.39
+  Request latency:
+    min: 0.6
+    max: 3.2
+    median: 0.9
+    p95: 2.5
+    p99: 3.2
+  Codes:
+    410: 34
+
+All virtual users finished
+Summary report @ 04:01:13(+0700) 2019-12-21
+  Scenarios launched:  100
+  Scenarios completed: 100
+  Requests completed:  3500
+  RPS sent: 115.97
+  Request latency:
+    min: 0.6
+    max: 5.4
+    median: 0.8
+    p95: 1.9
+    p99: 2.9
+  Scenario counts:
+    0: 100 (100%)
+  Codes:
+    410: 3500
+```
+
 # Troubleshooting
 
 ## Change Node Version
