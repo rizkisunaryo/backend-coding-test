@@ -7,8 +7,8 @@
     "test": "tests"
   },
   "scripts": {
-    "test": "nyc --reporter=text --reporter=html --reporter=lcovonly mocha ./src/**/*.test.js",
-    "start": "node ./src/index.js",
+    "test": "nyc --reporter=text --reporter=html --reporter=lcovonly mocha ./src/**/*.test.js --exit",
+    "dev": "nodemon ./src/app.js",
     "lint": "eslint ./src/**/*.js --fix",
     "pre-push": "yarn lint && yarn test"
   },
@@ -32,6 +32,7 @@
     "eslint-plugin-standard": "4.0.1",
     "husky": "3.1.0",
     "mocha": "6.1.4",
+    "nodemon": "2.0.2",
     "nyc": "14.1.1",
     "supertest": "4.0.2"
   },

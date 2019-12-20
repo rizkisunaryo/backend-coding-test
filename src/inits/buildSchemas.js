@@ -1,10 +1,12 @@
-'use strict';
+'use strict'
 
-module.exports = (db) => {
-    const createRideTableSchema = `
+const db = require('../singletons/database')()
+
+module.exports = () => {
+  const createRideTableSchema = `
         CREATE TABLE IF NOT EXISTS Rides
         (
-        rideID INTEGER PRIMARY KEY AUTOINCREMENT,
+        rideID TEXT PRIMARY KEY,
         startLat DECIMAL NOT NULL,
         startLong DECIMAL NOT NULL,
         endLat DECIMAL NOT NULL,
@@ -14,9 +16,7 @@ module.exports = (db) => {
         driverVehicle TEXT NOT NULL,
         created DATETIME default CURRENT_TIMESTAMP
         )
-    `;
+    `
 
-    db.run(createRideTableSchema);
-
-    return db;
-};
+  db.run(createRideTableSchema)
+}

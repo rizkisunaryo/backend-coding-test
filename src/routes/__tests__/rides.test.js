@@ -3,36 +3,17 @@
 const request = require('supertest')
 const assert = require('assert')
 
-const sqlite3 = require('sqlite3').verbose()
-const db = new sqlite3.Database(':memory:')
+const db = require('../../singletons/database')()
+const buildSchemas = require('../../inits/buildSchemas')
+const { app } = require('../../app')
 
-const app = require('../app')(db)
-const buildSchemas = require('../schemas')
-
-describe('API tests', () => {
-  beforeEach(done => {
-    db.serialize(err => {
-      if (err) {
-        return done(err)
-      }
-
-      buildSchemas(db)
-      db.run('DELETE FROM Rides')
-
-      done()
-    })
+describe('/routes/rides', () => {
+  beforeEach(() => {
+    buildSchemas()
+    db.run('DELETE FROM Rides')
   })
 
-  describe('GET /health', () => {
-    it('should return health', done => {
-      request(app)
-        .get('/health')
-        .expect('Content-Type', /text/)
-        .expect(200, done)
-    })
-  })
-
-  describe('GET /rides', () => {
+  describe('GET /', () => {
     it('should return 410 if no rides', done => {
       request(app)
         .get('/rides')
@@ -59,7 +40,7 @@ describe('API tests', () => {
     })
   })
 
-  describe('GET /rides/:id', () => {
+  describe('GET /:id', () => {
     it('should return 410 if rides id not found', done => {
       request(app)
         .get('/rides/test')
@@ -85,9 +66,27 @@ describe('API tests', () => {
       const rides = await request(app).get(`/rides/${insertedRide.body.rideID}`)
       assert.strictEqual(rides.body.driverName, 'TEST DRIVER 2')
     })
+    it('should be safe from SQL injection, and it should return error', async () => {
+      await request(app)
+        .post('/rides')
+        .set('Content-Type', 'application/json')
+        .send(
+          JSON.stringify({
+            start_lat: 0,
+            start_long: 0,
+            end_lat: 1,
+            end_long: 1,
+            rider_name: 'TEST RIDER 1',
+            driver_name: 'TEST DRIVER 1',
+            driver_vehicle: 'TEST VEHICLE 1'
+          })
+        )
+      const rides = await request(app).get(`/rides/' OR '' = '`)
+      assert.strictEqual(rides.status, 410)
+    })
   })
 
-  describe('POST /rides/:id', () => {
+  describe('POST /:id', () => {
     it('should return 400 if start_lat is not number', done => {
       request(app)
         .post('/rides')
