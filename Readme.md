@@ -103,11 +103,41 @@ Please implement load testing to ensure your service can handle a high amount of
 
 ---
 
-[![codecov](https://codecov.io/gh/rizkisunaryo/backend-coding-test/branch/master/graph/badge.svg)](https://codecov.io/gh/rizkisunaryo/backend-coding-test)
-
 # Installation
 - Make sure that Node version 10 is installed and used by following [this instruction](#change-node-version).
 - `yarn install`
+
+# How to Run
+
+## Development
+`yarn dev`
+
+# Folder Structure
+All codes are put inside `/src` folder. Why? It's easier to perform lint and test.
+- `app.js` as starting point
+- `helpers` contains helper files
+- `inits` contains the things that we want to do initially / firstly
+- `routes` contains the routes, e.g.: /health, /rides
+- `singletons` contains singleton files, such as: database, logger, etc
+- `validators` contains validators of the routes
+
+# Security
+
+## SQL Injection
+When writing SQL, avoid putting parameters inside it. Instead, use `?` and add parameters.
+- Bad
+```js
+const sql = `SELECT * FROM Rides WHERE rideID='${id}'`
+const rows = await DatabaseHelper.all(sql)
+```
+- Good
+```js
+const sql = `SELECT * FROM Rides WHERE rideID=?`
+const rows = await DatabaseHelper.all(sql, id)
+```
+
+# Unit Test Code Coverage
+[![codecov](https://codecov.io/gh/rizkisunaryo/backend-coding-test/branch/master/graph/badge.svg)](https://codecov.io/gh/rizkisunaryo/backend-coding-test)
 
 # Troubleshooting
 
