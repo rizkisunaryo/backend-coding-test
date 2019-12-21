@@ -12,7 +12,7 @@ const DatabaseHelper = require('../helpers/DatabaseHelper')
  */
 router.get('/', async (req, res) => {
   const healthy = {
-    api: true,
+    api: false,
     database: true
   }
 
