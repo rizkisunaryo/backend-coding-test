@@ -5,6 +5,27 @@ const logger = require('../singletons/logger')()
 const ridesValidator = require('../validators/ridesValidator')
 const { numberize } = require('../helpers/NumberHelper')
 
+/**
+ * @api {post} /rides Add new ride
+ * @apiGroup Rides
+ *
+ * @apiParam {Number} start_lat Start latitude.
+ * @apiParam {Number} start_long Start longitude.
+ * @apiParam {Number} end_lat End latitude.
+ * @apiParam {Number} end_long End longitude.
+ * @apiParam {String} rider_name Rider name.
+ * @apiParam {String} driver_name Driver name.
+ * @apiParam {String} driver_vehicle Driver vehicle.
+ *
+ * @apiSuccess {Number} rideID ID of inserted.
+ * @apiSuccess {Number} start_lat Start latitude.
+ * @apiSuccess {Number} start_long Start longitude.
+ * @apiSuccess {Number} end_lat End latitude.
+ * @apiSuccess {Number} end_long End longitude.
+ * @apiSuccess {String} rider_name Rider name.
+ * @apiSuccess {String} driver_name Driver name.
+ * @apiSuccess {String} driver_vehicle Driver vehicle.
+ */
 router.post('/', async (req, res) => {
   const startLatitude = Number(req.body.start_lat)
   const startLongitude = Number(req.body.start_long)
@@ -60,6 +81,23 @@ router.post('/', async (req, res) => {
   }
 })
 
+/**
+ * @api {get} /rides Get rides data
+ * @apiGroup Rides
+ *
+ * @apiParam {Number} page Page of data pagination.
+ * @apiParam {Number} size Number of rides returned.
+ *
+ * @apiSuccess {Object[]} - List of rides.
+ * @apiSuccess {Number} -.rideID ID of inserted.
+ * @apiSuccess {Number} -.start_lat Start latitude.
+ * @apiSuccess {Number} -.start_long Start longitude.
+ * @apiSuccess {Number} -.end_lat End latitude.
+ * @apiSuccess {Number} -.end_long End longitude.
+ * @apiSuccess {String} -.rider_name Rider name.
+ * @apiSuccess {String} -.driver_name Driver name.
+ * @apiSuccess {String} -.driver_vehicle Driver vehicle.
+ */
 router.get('/', async (req, res) => {
   try {
     const page = numberize(req.query.page, 1)
@@ -86,6 +124,21 @@ router.get('/', async (req, res) => {
   }
 })
 
+/**
+ * @api {get} /rides/:id Get the ride based on id
+ * @apiGroup Rides
+ *
+ * @apiParam {Number} id ID of the ride.
+ *
+ * @apiSuccess {Number} rideID ID of inserted.
+ * @apiSuccess {Number} start_lat Start latitude.
+ * @apiSuccess {Number} start_long Start longitude.
+ * @apiSuccess {Number} end_lat End latitude.
+ * @apiSuccess {Number} end_long End longitude.
+ * @apiSuccess {String} rider_name Rider name.
+ * @apiSuccess {String} driver_name Driver name.
+ * @apiSuccess {String} driver_vehicle Driver vehicle.
+ */
 router.get('/:id', async (req, res) => {
   try {
     const [rows] = await DatabaseHelper.all(
