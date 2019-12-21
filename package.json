@@ -14,7 +14,8 @@
     "lint": "eslint ./src/**/*.js --fix",
     "pre-push": "yarn lint && yarn test",
     "test:load": "artillery quick -c 100 -n 35 -d 30 http://localhost:8010/rides",
-    "test:race": "mocha ./src/**/__raceTests__/*.test.js --exit"
+    "test:race": "mocha ./src/**/__raceTests__/*.test.js --exit",
+    "api-doc": "apidoc -i src/ -o doc/"
   },
   "keywords": [
     "Xendit"
