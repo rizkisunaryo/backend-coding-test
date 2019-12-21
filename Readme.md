@@ -112,7 +112,12 @@ Please implement load testing to ensure your service can handle a high amount of
 ## Development
 `yarn dev`
 
+## Production
+`yarn start`
+
 # Folder Structure
+
+## Code Folders
 All codes are put inside `/src` folder. Why? It's easier to perform lint and test.
 - `app.js` as starting point
 - `helpers` contains helper files
@@ -121,6 +126,11 @@ All codes are put inside `/src` folder. Why? It's easier to perform lint and tes
 - `singletons` contains singleton files, such as: database, logger, etc
 - `validators` contains validators of the routes
 
+## Test Folders
+Inside Code Folders, there are some Test Folders:
+- `__tests__` contains unit tests
+- `__raceTests__` contains tests to simulate race condition
+
 # Security
 
 ## SQL Injection
@@ -128,18 +138,20 @@ When writing SQL, avoid putting parameters inside it. Instead, use `?` and add p
 - Bad
 ```js
 const sql = `SELECT * FROM Rides WHERE rideID='${id}'`
-const rows = await DatabaseHelper.all(sql)
+const [rows] = await DatabaseHelper.all(sql)
 ```
 - Good
 ```js
 const sql = `SELECT * FROM Rides WHERE rideID=?`
-const rows = await DatabaseHelper.all(sql, id)
+const [rows] = await DatabaseHelper.all(sql, id)
 ```
 
 # Unit Test Code Coverage
 [![codecov](https://codecov.io/gh/rizkisunaryo/backend-coding-test/branch/master/graph/badge.svg)](https://codecov.io/gh/rizkisunaryo/backend-coding-test)
 
-# Performance
+# Load Testing
+
+## Performance
 After running `yarn test:load`, below is the result:
 ```
 Started phase 0, duration: 30s @ 04:00:42(+0700) 2019-12-21
@@ -220,6 +232,11 @@ Summary report @ 04:01:13(+0700) 2019-12-21
   Codes:
     410: 3500
 ```
+
+## Race Condition Test
+Run `yarn test:race` to simulate race condition. This will run tests `__raceTests__` folder.
+
+If not passed, then some codes need to be fixed.
 
 # Troubleshooting
 

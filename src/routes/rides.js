@@ -1,5 +1,4 @@
 const router = require('express').Router()
-const uuidV4 = require('uuid/v4')
 
 const DatabaseHelper = require('../helpers/DatabaseHelper')
 const logger = require('../singletons/logger')()
@@ -27,13 +26,10 @@ router.post('/', async (req, res) => {
   if (notValidReturn) {
     const { error_code, message } = notValidReturn
     res.status(notValidReturn.status).send({ error_code, message })
+    return
   }
 
-  const id = uuidV4()
-    .split('-')
-    .join('')
   var values = [
-    id,
     startLatitude,
     startLongitude,
     endLatitude,
@@ -44,18 +40,19 @@ router.post('/', async (req, res) => {
   ]
 
   try {
-    await DatabaseHelper.run(
-      'INSERT INTO Rides(rideID, startLat, startLong, endLat, endLong, riderName, driverName, driverVehicle) VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
+    const [_, inserted] = await DatabaseHelper.run(
+      'INSERT INTO Rides(startLat, startLong, endLat, endLong, riderName, driverName, driverVehicle) VALUES (?, ?, ?, ?, ?, ?, ?)',
       values
     )
-    const rows = await DatabaseHelper.all(
+
+    const [rows] = await DatabaseHelper.all(
       'SELECT * FROM Rides WHERE rideID = ?',
-      id
+      inserted.lastID
     )
+
     res.send(rows[0])
   } catch (error) {
     logger.error(error.toString())
-
     return res.send({
       error_code: 'SERVER_ERROR',
       message: 'Unknown error'
@@ -68,7 +65,7 @@ router.get('/', async (req, res) => {
     const page = numberize(req.query.page, 1)
     const size = numberize(req.query.size, 10)
 
-    const rows = await DatabaseHelper.all('SELECT * FROM Rides LIMIT ?, ?', [
+    const [rows] = await DatabaseHelper.all('SELECT * FROM Rides LIMIT ?, ?', [
       (page - 1) * size,
       size
     ])
@@ -91,7 +88,7 @@ router.get('/', async (req, res) => {
 
 router.get('/:id', async (req, res) => {
   try {
-    const rows = await DatabaseHelper.all(
+    const [rows] = await DatabaseHelper.all(
       'SELECT * FROM Rides WHERE rideID=?',
       req.params.id
     )
