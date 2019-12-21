@@ -1,10 +1,10 @@
 const db = require('../singletons/database')()
 
-const callback = (resolve, reject) => (err, rows) => {
+const callback = (resolve, reject) => function (err, rows) {
   if (err) {
     reject(err)
   } else {
-    resolve(rows)
+    resolve([rows, this])
   }
 }
 

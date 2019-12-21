@@ -4,9 +4,9 @@ const db = require('../singletons/database')()
 
 module.exports = () => {
   const createRideTableSchema = `
-        CREATE TABLE IF NOT EXISTS Rides
+        CREATE TABLE IF NOT EXISTS Rides 
         (
-        rideID TEXT PRIMARY KEY,
+        rideID INTEGER PRIMARY KEY AUTOINCREMENT,
         startLat DECIMAL NOT NULL,
         startLong DECIMAL NOT NULL,
         endLat DECIMAL NOT NULL,
