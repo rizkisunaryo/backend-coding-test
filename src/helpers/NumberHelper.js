@@ -1,5 +1,5 @@
 module.exports = {
-    numberize: (str, defaultNumber) => {
-        return Number(str) ? Number(str) : defaultNumber
-    }
+  numberize: (str, defaultNumber) => {
+    return Number(str) ? Number(str) : defaultNumber
+  }
 }

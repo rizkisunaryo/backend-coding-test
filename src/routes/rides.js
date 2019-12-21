@@ -40,14 +40,14 @@ router.post('/', async (req, res) => {
   ]
 
   try {
-    const [_, inserted] = await DatabaseHelper.run(
+    const result = await DatabaseHelper.run(
       'INSERT INTO Rides(startLat, startLong, endLat, endLong, riderName, driverName, driverVehicle) VALUES (?, ?, ?, ?, ?, ?, ?)',
       values
     )
 
     const [rows] = await DatabaseHelper.all(
       'SELECT * FROM Rides WHERE rideID = ?',
-      inserted.lastID
+      result[1].lastID
     )
 
     res.send(rows[0])
@@ -101,7 +101,7 @@ router.get('/:id', async (req, res) => {
 
     res.send(rows[0])
   } catch (error) {
-    logger.error(err.toString())
+    logger.error(error.toString())
     return res.status(500).send({
       error_code: 'SERVER_ERROR',
       message: 'Unknown error'
