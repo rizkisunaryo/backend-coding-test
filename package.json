@@ -46,11 +46,6 @@
     "pm2": "4.2.1",
     "supertest": "4.0.2"
   },
-  "husky": {
-    "hooks": {
-      "pre-push": "npm test"
-    }
-  },
   "apidoc": {
     "title": "Xendit Test",
     "url" : "http://localhost:8010"
