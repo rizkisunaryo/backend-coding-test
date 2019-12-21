@@ -1,3 +1,6 @@
+[![codecov](https://codecov.io/gh/rizkisunaryo/backend-coding-test/branch/master/graph/badge.svg)](https://codecov.io/gh/rizkisunaryo/backend-coding-test)
+[![CircleCI](https://circleci.com/gh/rizkisunaryo/backend-coding-test.svg?style=svg)](https://circleci.com/gh/rizkisunaryo/backend-coding-test)
+
 # Goal
 
 This project is to track rides of every driver.
