@@ -1,9 +1,12 @@
-const router = require('express').Router()
+import { Router } from 'express'
 
-const DatabaseHelper = require('../helpers/DatabaseHelper')
-const logger = require('../singletons/logger')()
-const ridesValidator = require('../validators/ridesValidator')
-const { numberize } = require('../helpers/NumberHelper')
+import getLogger from '../singletons/logger'
+import DatabaseHelper from '../helpers/DatabaseHelper'
+import ridesValidator from '../validators/ridesValidator'
+import { numberize } from '../helpers/NumberHelper'
+
+const router = Router()
+const logger = getLogger()
 
 /**
  * @api {post} /rides Add new ride
@@ -162,4 +165,4 @@ router.get('/:id', async (req, res) => {
   }
 })
 
-module.exports = router
+export default router

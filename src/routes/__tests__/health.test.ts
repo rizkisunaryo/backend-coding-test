@@ -1,9 +1,7 @@
-'use strict'
+import * as request from 'supertest'
 
-const request = require('supertest')
-
-const { app } = require('../../app')
-const buildSchemas = require('../../inits/buildSchemas')
+import buildSchemas from '../../inits/buildSchemas'
+import app from '../../app'
 
 describe('/routes/health', () => {
   before(() => {

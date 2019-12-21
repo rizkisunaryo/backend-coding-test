@@ -1,8 +1,6 @@
-'use strict'
+import getDb from '../singletons/database'
 
-const db = require('../singletons/database')()
-
-module.exports = () => {
+export default () => {
   const createRideTableSchema = `
         CREATE TABLE IF NOT EXISTS Rides 
         (
@@ -18,5 +16,5 @@ module.exports = () => {
         )
     `
 
-  db.run(createRideTableSchema)
+  getDb().run(createRideTableSchema)
 }

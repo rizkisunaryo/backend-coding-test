@@ -1,11 +1,11 @@
-'use strict'
+import * as request from 'supertest'
+import {strictEqual} from 'assert'
 
-const request = require('supertest')
-const assert = require('assert')
+import getDb from '../../singletons/database'
+import buildSchemas from '../../inits/buildSchemas'
+import app from '../../app'
 
-const db = require('../../singletons/database')()
-const buildSchemas = require('../../inits/buildSchemas')
-const { app } = require('../../app')
+const db = getDb()
 
 describe('raceTests: /routes/rides', () => {
   beforeEach(() => {
@@ -49,7 +49,7 @@ describe('raceTests: /routes/rides', () => {
 
       await Promise.all(promises)
 
-      assert(1, 1)
+      strictEqual(1, 1)
     })
   })
 })
