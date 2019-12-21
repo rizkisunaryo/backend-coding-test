@@ -8,11 +8,13 @@
   },
   "scripts": {
     "test": "nyc --reporter=text --reporter=html --reporter=lcovonly mocha ./src/**/__tests__/*.test.js --exit",
+    "test:ci": "mocha ./src/**/__tests__/*.test.js --exit",
     "dev": "nodemon ./src/app.js",
     "start": "pm2 start ./src/app.js -i 0 --name xendit-test",
     "stop": "pm2 delete xendit-test",
     "lint": "eslint ./src/**/*.js --fix",
     "pre-push": "yarn lint && yarn test",
+    "ci": "yarn lint && yarn test:ci",
     "test:load": "artillery quick -c 100 -n 35 -d 30 http://localhost:8010/rides",
     "test:race": "mocha ./src/**/__raceTests__/*.test.js --exit",
     "api-doc": "apidoc -i src/ -o doc/"
