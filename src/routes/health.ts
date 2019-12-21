@@ -1,7 +1,10 @@
-const router = require('express').Router()
+import { Router } from 'express'
 
-const logger = require('../singletons/logger')()
-const DatabaseHelper = require('../helpers/DatabaseHelper')
+import getLogger from '../singletons/logger'
+import DatabaseHelper from '../helpers/DatabaseHelper'
+
+const router = Router()
+const logger = getLogger()
 
 /**
  * @api {get} /health Check the health of the system.
@@ -26,4 +29,4 @@ router.get('/', async (req, res) => {
   res.json(healthy)
 })
 
-module.exports = router
+export default router

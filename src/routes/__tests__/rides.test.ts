@@ -1,11 +1,11 @@
-'use strict'
+import * as request from 'supertest'
+import {strictEqual} from 'assert'
 
-const request = require('supertest')
-const assert = require('assert')
+import getDb from '../../singletons/database'
+import buildSchemas from '../../inits/buildSchemas'
+import app from '../../app'
 
-const db = require('../../singletons/database')()
-const buildSchemas = require('../../inits/buildSchemas')
-const { app } = require('../../app')
+const db = getDb()
 
 describe('/routes/rides', () => {
   beforeEach(() => {
@@ -36,7 +36,7 @@ describe('/routes/rides', () => {
           })
         )
       const rides = await request(app).get('/rides')
-      assert.strictEqual(rides.body.length, 1)
+      strictEqual(rides.body.length, 1)
     })
   })
 
@@ -64,7 +64,7 @@ describe('/routes/rides', () => {
           })
         )
       const rides = await request(app).get(`/rides/${insertedRide.body.rideID}`)
-      assert.strictEqual(rides.body.driverName, 'TEST DRIVER 2')
+      strictEqual(rides.body.driverName, 'TEST DRIVER 2')
     })
     it('should be safe from SQL injection, and it should return error', async () => {
       await request(app)
@@ -82,7 +82,7 @@ describe('/routes/rides', () => {
           })
         )
       const rides = await request(app).get(`/rides/' OR '' = '`)
-      assert.strictEqual(rides.status, 410)
+      strictEqual(rides.status, 410)
     })
   })
 
